@@ -181,3 +181,15 @@ form input,textarea {
 input,textarea:focus{
   outline: none;
 }
+
+.btn-primary{
+  display: block;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  width: 100%;
+  color: #ff7979;
+  font-size: 17px;
+  font-weight: bolder;
+
+}
