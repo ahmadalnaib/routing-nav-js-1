@@ -1,31 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
-      integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="css/style.css" />
-    <title>rotating nav</title>
-  </head>
-  <body>
-    <div class="container">
-      <div class="circle-container">
-        <div class="circle">
-          <button id="close">
-            <i class="fas fa-times"></i>
-          </button>
-          <button id="open">
-            <i class="fas fa-bars"></i>
-          </button>
-        </div>
-      </div>
 
+      
+      <?php require_once('./template/header.php')?>
       <div class="content">
         <h1>Amazing Article</h1>
         <small>Ahmad Habeeb</small>
@@ -53,16 +28,5 @@
           aliquid neque totam enim!
         </p>
       </div>
-    </div>
-
-    <nav>
-      <ul>
-        <li><i class="fas fa-home"></i>Home</li>
-        <li><i class="fas fa-user-alt"></i>About</li>
-        <li><i class="fas fa-envelope"></i>Contact</li>
-      </ul>
-    </nav>
-
-    <script src="js/app.js"></script>
-  </body>
-</html>
+   
+      <?php require_once('./template/footer.php')?>

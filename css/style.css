@@ -35,6 +35,11 @@ nav ul li {
   transition: transform 0.4s ease-in;
 }
 
+nav ul li a{
+color: #fff;
+text-decoration: none;
+}
+
 nav ul li + li {
   margin-left: 15px;
   transform: translateX(-150%);
@@ -45,6 +50,10 @@ nav ul li + li +li {
   transform: translateX(-200%);
 }
 
+nav ul li  i {
+  font-size: 20px;
+  margin-right: 10px;
+}
 nav ul li  i {
   font-size: 20px;
   margin-right: 10px;
