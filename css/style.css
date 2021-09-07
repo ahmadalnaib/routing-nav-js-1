@@ -140,3 +140,44 @@ nav ul li  i {
   color: #333;
   line-height: 1.5;
 }
+
+
+
+/* form*/
+
+.container-form{
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  background: #ff7979;
+
+
+}
+.container-form h1 {
+  color: #f4f4f4;
+  margin-bottom: 1rem;
+}
+
+form {
+  background: #fff;
+  padding: 20px 40px;
+  border-radius: 5px;
+  width: 600px;
+}
+
+form input,textarea {
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  margin-bottom: 1rem;
+ border-radius: 5px;
+ border-color: #ccc;
+ border-style: dotted;
+ 
+}
+
+input,textarea:focus{
+  outline: none;
+}

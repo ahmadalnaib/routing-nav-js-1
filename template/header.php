@@ -14,7 +14,7 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="css/style.css" />
-    <title><?php $config['app_name'] ?></title>
+    <title><?php echo $config['app_name'] . "|" . $title ?></title>
   </head>
   <body>
     <div class="container">
