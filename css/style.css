@@ -193,3 +193,10 @@ input,textarea:focus{
   font-weight: bolder;
 
 }
+
+ form span{
+  display: block;
+  color: red;
+  margin-bottom: 1rem;
+  
+}
