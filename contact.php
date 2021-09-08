@@ -2,6 +2,7 @@
 $title = "contact";
 require_once('./template/header.php');
 
+
 function filterString($field)
 {
       $field = filter_var(trim($field), FILTER_SANITIZE_STRING);
@@ -22,6 +23,29 @@ function filterEmail($field)
       } else {
             return false;
       }
+}
+
+
+function canUpload($file)
+{
+      $allowedFiles = [
+            'jpg' => 'image/jpeg',
+            'png' => 'image/png',
+            'gif' => 'image/gif'
+      ];
+
+      $MaxFileSize = 1000 * 1025;
+
+      $fileType = mime_content_type($file['tmp_name']);
+      $fileSize = $file['size'];
+
+      if (!in_array($fileType, $allowedFiles)) {
+            return 'file type not support 🧐';
+      }
+      if ($fileSize > $MaxFileSize) {
+            return "file size is big 🤯 Max size is" . $MaxFileSize;
+      }
+      return true;
 }
 
 
@@ -50,26 +74,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
-
-
+      // file upload
 
       if (isset($_FILES['file']) && $_FILES['file']['error'] == 0) {
-            $allowedFiles = [
-                  'jpg' => 'image/jpeg',
-                 // 'png' => 'image/png',
-                  'gif' => 'image/gif'
-            ];
 
-            $MaxFileSize = 10 * 1025;
+            $uploadFile = canUpload($_FILES['file']);
 
-            $fileType = mime_content_type($_FILES['file']['tmp_name']);
-            $fileSize = $_FILES['file']['size'];
+            if ($uploadFile === true) {
+                  $uploadDir = "uploads";
 
-            if (!in_array($fileType, $allowedFiles)) {
-                  $fileErr= 'file type not support 🧐';
-            }
-            if ($fileSize > $MaxFileSize) {
-                  $fileErr= "file size is big 🤯 Max size is" . $MaxFileSize;
+                  if (!is_dir($uploadDir)) {
+                        umask(0);
+                        mkdir($uploadDir, 0775);
+                  }
+                  $fileName = time() . $_FILES['file']['name'];
+                  move_uploaded_file($_FILES['file']['tmp_name'], $uploadDir . '/' . $fileName);
+            } else {
+                  $fileErr = $uploadFile;
             }
       }
 }
