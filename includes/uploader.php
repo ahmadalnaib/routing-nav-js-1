@@ -90,6 +90,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                   $fileErr = $uploadFile;
             }
       }
+
+      if(!$nameErr && !$EmailErr && !$messageErr &&!$fileErr ){
+        session_destroy();
+        header('Location:contact.php');
+      }
 }
 
 
