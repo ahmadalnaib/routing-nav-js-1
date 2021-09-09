@@ -1,13 +1,9 @@
 <?php
 $title = "Home";
 require_once('./template/header.php');
+require_once('./config/db.php');
 
 
-// database
-$mysqli=new mysqli("localhost",'root','','2022');
-if($mysqli->connect_error){
-  die('no coneect' .$mysqli->connect_error);
-}
 
 $projects=$mysqli->query("SELECT * FROM projects order by created_at")->fetch_all(MYSQLI_ASSOC);
 ?>
