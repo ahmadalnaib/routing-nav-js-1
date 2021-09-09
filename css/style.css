@@ -152,8 +152,9 @@ nav ul li  i {
   align-items: center;
   justify-content: center;
   background: #ff7979;
-
-
+}
+.form-control{
+  position: relative;
 }
 .container-form h1 {
   color: #f4f4f4;
@@ -162,7 +163,7 @@ nav ul li  i {
 
 form {
   background: #fff;
-  padding: 20px 40px;
+  padding: 30px 40px;
   border-radius: 5px;
   width: 600px;
 }
@@ -183,15 +184,25 @@ input,textarea:focus{
 }
 
 .btn-primary{
-  display: block;
-  border: none;
-  padding: 10px 20px;
+  display: inline-block;
+  border: 0;
+  padding: 15px;
   cursor: pointer;
   width: 100%;
-  color: #ff7979;
+  color: #333;
   font-size: 17px;
   font-weight: bolder;
+  background: lightblue;
+  border-radius: 5px;
 
+}
+
+.btn-primary:focus{
+  outline: 0;
+}
+
+.btn-primary:active{
+  transform: scale(0.98);
 }
 
  form span{
@@ -200,3 +211,5 @@ input,textarea:focus{
   margin-bottom: 1rem;
   
 }
+
+
