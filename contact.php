@@ -2,7 +2,7 @@
 $title = "contact";
 require_once('./template/header.php');
 require_once('./includes/uploader.php');
-require_once('./config/db.php');
+
 
 
 

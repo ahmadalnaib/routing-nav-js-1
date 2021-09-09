@@ -1,4 +1,6 @@
 <?php
+   $uploadDir = "uploads";
+require_once __DIR__ . "/../config/db.php";
 
 function filterString($field)
 {
@@ -31,7 +33,7 @@ function canUpload($file)
     'gif' => 'image/gif'
   ];
 
-  $MaxFileSize = 1000 * 1025;
+  $MaxFileSize = 10 * 1024 *1024;
 
   $fileType = mime_content_type($file['tmp_name']);
   $fileSize = $file['size'];
@@ -48,7 +50,7 @@ function canUpload($file)
 
 /* errors message */
 $nameErr = $EmailErr = $fileErr = $messageErr = '';
-$name = $email = $message = '';
+$name = $email = $message =$services= '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -67,6 +69,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $messageErr = "message is required";
   }
 
+  $services=filterString($_POST['services']);
+
+
 
 
 
@@ -78,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $uploadFile = canUpload($_FILES['file']);
 
     if ($uploadFile === true) {
-      $uploadDir = "uploads";
+      // $uploadDir = "uploads";
 
       if (!is_dir($uploadDir)) {
         umask(0);
@@ -93,6 +98,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   if (!$nameErr && !$EmailErr && !$messageErr && !$fileErr) {
 
+    $insertMessage = "INSERT INTO messages (name,email,file,message,service_id)" .
+      "VALUES ('$name','$email','$uploadDir/$fileName','$message','$services')";
+    $mysqli->query($insertMessage);
 
     $headers = "MIME-Version: 1.0" . "\r\n";
     $headers .= "Content-type:text/html; charset=UTF-8" . "\r\n";
