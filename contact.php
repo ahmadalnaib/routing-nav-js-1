@@ -6,7 +6,7 @@ require_once('./includes/uploader.php');
 
 
 
-$services=$mysqli->query("SELECT id,name FROM services")->fetch_all(MYSQLI_ASSOC);
+$services=$mysqli->query("SELECT id,service_name FROM services")->fetch_all(MYSQLI_ASSOC);
 
 ?>
 <div class="content">
@@ -27,12 +27,14 @@ $services=$mysqli->query("SELECT id,name FROM services")->fetch_all(MYSQLI_ASSOC
                   </div>
                   <div>
                       <select name="services" id="services">
+                     <option value="#">Choose...</option>
                             <?php foreach($services as $service): ?>
                             <option value="<?php echo $service['id'] ?>">
-                             <?php echo $service['name'] ?>
+                             <?php echo $service['service_name'] ?>
                             </option>
                             <?php endforeach ?>
                       </select>
+                      <span class="text-danger"><?php echo $servicesErr ?></span>
                   </div>
                   <div>
                         <textarea name="message" id="message" cols="30" rows="10" placeholder="Message">

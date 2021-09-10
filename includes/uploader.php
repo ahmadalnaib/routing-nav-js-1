@@ -49,7 +49,7 @@ function canUpload($file)
 
 
 /* errors message */
-$nameErr = $EmailErr = $fileErr = $messageErr = '';
+$nameErr = $EmailErr = $fileErr = $messageErr=$servicesErr = '';
 $name = $email = $message = $services = '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -70,6 +70,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   }
 
   $services = filterString($_POST['services']);
+  if (!$services) {
+    $servicesErr = "you must choose one ";
+  }
 
 
 
@@ -96,7 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
   }
 
-  if (!$nameErr && !$EmailErr && !$messageErr && !$fileErr) {
+  if (!$nameErr && !$EmailErr && !$messageErr && !$fileErr && !$servicesErr) {
     $fileName ? $filePath = $uploadDir . '/' . $fileName : $filePath = '';
 
     $insertMessage = "INSERT INTO messages (name,email,file,message,service_id)" .
