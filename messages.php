@@ -6,7 +6,7 @@ require_once('./config/app.php');
 
 $query = "SELECT  *, messages.id as message_id , 
 services.id  as services_id FROM messages 
- left join services on messages.service_id=services.id";;
+ left join services on messages.service_id=services.id order by messages.id";
 $messages = $mysqli->query($query)->fetch_all(MYSQLI_ASSOC);
 
 
@@ -37,7 +37,10 @@ $messages = $mysqli->query($query)->fetch_all(MYSQLI_ASSOC);
       <td><?php echo $message['message'] ?></td>
       <td>
         <a href="?id=<?php echo $message['message_id'] ?>">View</a>
-        <a href="#">delete</a>
+       <form onsubmit="return confirm('are you sure')"  method="post" class="form-delete">
+         <input type="hidden" name="message_id" value="<?php echo $message['message_id'] ?>">
+         <button class="delete-btn">delete</button>
+       </form>
       </td>
 
     </tr>
@@ -83,4 +86,11 @@ $message=$mysqli->query($messageQuery)->fetch_array(MYSQLI_ASSOC);
 <?php endif ?>
 
 
+<!-- delete message -->
+<?php
+if(isset($_POST['message_id'])){
+$mysqli->query("delete from messages where id=".$_POST['message_id']);
+header('location:messages.php');
+}
+?>
 <?php require_once('./template/footer.php') ?>

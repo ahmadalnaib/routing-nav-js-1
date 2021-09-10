@@ -254,3 +254,7 @@ input,textarea:focus{
   height: 100vh;
 
 }
+
+.delete-btn{
+  display: inline;
+}
