@@ -49,7 +49,7 @@ function canUpload($file)
 
 
 /* errors message */
-$nameErr = $EmailErr = $fileErr = $messageErr=$servicesErr = '';
+$nameErr = $EmailErr = $fileErr = $messageErr = $servicesErr = '';
 $name = $email = $message = $services = '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -102,9 +102,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   if (!$nameErr && !$EmailErr && !$messageErr && !$fileErr && !$servicesErr) {
     $fileName ? $filePath = $uploadDir . '/' . $fileName : $filePath = '';
 
-    $insertMessage = "INSERT INTO messages (name,email,file,message,service_id)" .
-      "VALUES ('$name','$email','$fileName','$message','$services')";
-    $mysqli->query($insertMessage);
+    $statement = $mysqli->prepare("INSERT into messages(name,email,file,message,service_id)
+                                    VALUES(?,?,?,?,?)");
+    $statement->bind_param('ssssi', $dbName, $dbEmail, $dbFile, $dbMessage, $dbServiceId);
+    $dbName = $name;
+    $dbEmail = $email;
+    $dbFile = $fileName;
+    $dbMessage = $message;
+    $dbServiceId = $services;
+
+    $statement->execute();
+
+
+
+
+    // $insertMessage = "INSERT INTO messages (name,email,file,message,service_id)" .
+    //   "VALUES ('$name','$email','$fileName','$message','$services')";
+    // $mysqli->query($insertMessage);
 
     $headers = "MIME-Version: 1.0" . "\r\n";
     $headers .= "Content-type:text/html; charset=UTF-8" . "\r\n";
