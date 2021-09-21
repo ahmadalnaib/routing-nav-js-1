@@ -258,3 +258,11 @@ input,textarea:focus{
 .delete-btn{
   display: inline;
 }
+
+
+.errros{
+  background: #fff;
+  color: red;
+  padding: 1rem;
+  margin: 1rem;
+}
