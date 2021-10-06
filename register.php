@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['logged_in']=true;
             $_SESSION['user_id']=$mysqli->insert_id;
             $_SESSION['user_name']=$name;
-            $_SESSION['success_message']=" welcome back $name";
+            $_SESSION['success_message']=" welcome with us $name";
             header('location:index.php');
       }
 }
