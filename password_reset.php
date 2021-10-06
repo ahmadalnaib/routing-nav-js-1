@@ -31,10 +31,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $userExists = $mysqli->query("select id,email from users where email='$email' limit 1");
 
     if ($userExists->num_rows) {
-       
-      $userId=$userExists->fetch_assoc()['id'];
-      $token=bin2hex(random_bytes(16));
 
+      $userId = $userExists->fetch_assoc()['id'];
+      $token = bin2hex(random_bytes(16));
+      $expires_at = date('Y-m-d H:i:s', strtotime('+1 day'));
+      $mysqli->query("insert into password_resets (user_id,token,expires_at)
+      values('$userId','$token','$expires_at');
+      ");
     }
   }
 }
@@ -57,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
       </div>
 
-      <button class="btn-primary">Reset password</button>
+      <button class="btn-primary">Request password link</button>
     </form>
   </div>
 </div>
