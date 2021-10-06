@@ -1,10 +1,27 @@
 <?php
-$title = "password reset";
+$title = "new password";
 require_once('./template/header.php');
 require_once('./config/db.php');
 
 if (isset($_SESSION['logged_in'])) {
   header('location:index.php');
+}
+
+
+if (!isset($_GET['token']) || !$_GET['token']) {
+  die('Token is missing');
+}
+
+$now = date('Y-m-d H:i:s');
+
+$stmt = $mysqli->prepare("select * from password_resets where token=? and expires_at > '$now'");
+$stmt->bind_param('s', $token);
+$token = $_GET['token'];
+$stmt->execute();
+$result = $stmt->get_result();
+
+if (!$result->num_rows) {
+  die('token is not valid');
 }
 
 $errors = [];
@@ -58,15 +75,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <div class="content">
   <div class="container-form">
     <?php include './template/errors.php' ?>
-    <h1>Fill in your email to reset your password </h1>
+    <h1>Fill in your new password </h1>
     <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" enctype="multipart/form-data">
 
       <div>
-        <input type="email" name="email" placeholder="Email">
-
+        <input type="password" name="password" placeholder="New Password">
+      </div>
+      <div>
+        <input type="password" name="confirm_password" placeholder="Confirm Password">
       </div>
 
-      <button class="btn-primary">Request password link</button>
+      <button class="btn-primary">Change Password</button>
     </form>
   </div>
 </div>
