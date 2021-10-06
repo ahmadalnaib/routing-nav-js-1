@@ -31,37 +31,32 @@ $errors = [];
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-  $email = mysqli_real_escape_string($mysqli, $_POST['email']);
+  $password = mysqli_real_escape_string($mysqli, $_POST['password']);
+  $confirm_password = mysqli_real_escape_string($mysqli, $_POST['confirm_password']);
 
 
+  if (empty($password)) {
+    array_push($errors, "Password is required");
+  }
+  if (empty($confirm_password)) {
+    array_push($errors, "Password confirm is required");
+  }
 
-
-  if (empty($email)) {
-    array_push($errors, "Email is required");
+  if ($password !== $confirm_password) {
+    array_push($errors, "Password  not match");
   }
 
 
 
 
   if (!count($errors)) {
-
-    $userExists = $mysqli->query("select id,email from users where email='$email' limit 1");
-
-    if ($userExists->num_rows) {
-
-
-
-      $userId = $userExists->fetch_assoc()['id'];
-
-      $tokenExists = $mysqli->query("delete from password_resets where user_id='$userId'");
-      $token = bin2hex(random_bytes(16));
-      $expires_at = date('Y-m-d H:i:s', strtotime('+1 day'));
-      $mysqli->query("insert into password_resets (user_id,token,expires_at)
-      values('$userId','$token','$expires_at');
-      ");
-    }
-    $_SESSION['success_message'] = "please check your email for reset link";
-    header('location:password_reset.php');
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+    $userId = $result->fetch_assoc()['user_id'];
+    $mysqli->query("update users set password= '$hashed_password' where id='$userId'");
+    $mysqli->query("delete from password_restes where user_id='$userId'");
+    $_SESSION['success_message'] = 'your password has been changed';
+    header('location:login.php');
+    die();
   }
 }
 ?>

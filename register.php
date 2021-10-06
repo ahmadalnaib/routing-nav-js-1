@@ -30,8 +30,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             array_push($errors, "Password is required");
       }
       if (empty($confirm_password)) {
+            array_push($errors, "Password  confirm  is required");
+      }
+
+      if($password !== $confirm_password){
             array_push($errors, "Password  not match");
       }
+      }
+
 
       if (!count($errors)) {
 
