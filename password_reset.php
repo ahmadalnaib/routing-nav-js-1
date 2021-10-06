@@ -42,6 +42,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $mysqli->query("insert into password_resets (user_id,token,expires_at)
       values('$userId','$token','$expires_at');
       ");
+      $changePasswordUrl = $config['app_url'] . 'change_password.php?token=' . $token;
+      $headers = "MIME-Version: 1.0" . "\r\n";
+      $headers .= "Content-type:text/html; charset=UTF-8" . "\r\n";
+
+      $headers .= "From: " . $config['admin_email'] . "\r\n";
+      'Reply-To:' . $config['admin_email'] . "\r\n";
+      'X-Mailer: PHP/' . phpversion();
+
+      $htmlMessage = '<html><body>';
+      $htmlMessage .= '<p style="color:#ff0000;">' . $changePasswordUrl . '</p>';
+      $htmlMessage .= '</body></html>';
+
+      mail($email, 'password reset link', $htmlMessage, $headers);
     }
     $_SESSION['success_message'] = "please check your email for reset link";
     header('location:password_reset.php');

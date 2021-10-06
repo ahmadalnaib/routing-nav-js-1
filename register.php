@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       if($password !== $confirm_password){
             array_push($errors, "Password  not match");
       }
-      }
+      
 
 
       if (!count($errors)) {
@@ -61,6 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             header('location:index.php');
       }
 }
+
 ?>
 
 
